@@ -11,10 +11,14 @@ export default function Nav() {
           PARO
         </Link>
         <nav className="flex gap-6 text-sm" style={{ color: 'var(--muted)' }}>
-          <Link href="/search" className={pathname.startsWith('/search') ? 'text-white' : 'hover:text-white transition-colors'}>
+          <Link href="/search"
+            className="transition-colors"
+            style={{ color: pathname.startsWith('/search') ? 'var(--accent)' : 'var(--muted)' }}>
             탐색
           </Link>
-          <Link href="/search?tab=commission" className="hover:text-white transition-colors">
+          <Link href="/search?tab=commission"
+            className="transition-colors hover:text-[--accent]"
+            style={{ color: 'var(--muted)' }}>
             의뢰
           </Link>
         </nav>
