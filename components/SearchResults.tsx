@@ -133,33 +133,43 @@ function ResultSection({ title, count, children }: { title: string; count: numbe
 function MatchReason({ reason }: { reason: string }) {
   if (!reason) return null
   return (
-    <p className="text-xs mt-2 px-2 py-1 rounded" style={{ background: 'var(--surface2)', color: 'var(--accent)' }}>
+    <p className="text-xs mt-2 px-2.5 py-1 rounded-full inline-block" style={{ background: '#eef0f8', color: 'var(--accent)' }}>
       ✦ {reason}
     </p>
   )
 }
 
+function Thumb({ bg, children }: { bg: string; children: React.ReactNode }) {
+  return (
+    <div className="w-12 h-12 rounded-xl shrink-0 flex items-center justify-center" style={{ background: bg }}>
+      {children}
+    </div>
+  )
+}
+
 function TrackCard({ item, tags }: { item: Track; tags: string[] }) {
   const router = useRouter()
-  const filters = keywordsToFilters(tags)
-  const reason = buildMatchReason(filters, item)
+  const reason = buildMatchReason(keywordsToFilters(tags), item)
   return (
     <button className="card p-4 text-left w-full" onClick={() => router.push(`/track/${item.id}`)}>
       <div className="flex gap-3 items-start">
-        <div className="w-12 h-12 rounded-lg shrink-0 flex items-center justify-center text-2xl"
-          style={{ background: 'var(--surface2)' }}>♩</div>
+        <Thumb bg="linear-gradient(135deg,#dde8f0,#ccc0d8)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5a7a9a" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+          </svg>
+        </Thumb>
         <div className="flex-1 min-w-0">
-          <p className="font-bold truncate">{item.title}</p>
+          <p className="font-bold text-sm truncate">{item.title}</p>
           <p className="text-xs mt-0.5" style={{ color: 'var(--muted)' }}>
             {(item.artist as Artist)?.name ?? '—'} · {formatDuration(item.duration_sec)}
           </p>
           <div className="flex flex-wrap gap-1 mt-2">
-            {item.instruments.slice(0, 3).map(t => <span key={t} className="tag">{t}</span>)}
+            {item.instruments.slice(0, 2).map(t => <span key={t} className="tag">{t}</span>)}
             {item.emotion.slice(0, 2).map(t => <span key={t} className="tag">{t}</span>)}
           </div>
           <MatchReason reason={reason} />
         </div>
-        <p className="text-sm font-bold shrink-0" style={{ color: 'var(--accent)' }}>{formatPrice(item.price)}</p>
+        <p className="text-sm font-bold shrink-0 mt-0.5" style={{ color: 'var(--accent)' }}>{formatPrice(item.price)}</p>
       </div>
     </button>
   )
@@ -167,24 +177,27 @@ function TrackCard({ item, tags }: { item: Track; tags: string[] }) {
 
 function ArtistCard({ item, tags }: { item: Artist; tags: string[] }) {
   const router = useRouter()
-  const filters = keywordsToFilters(tags)
-  const reason = buildMatchReason(filters, item)
+  const reason = buildMatchReason(keywordsToFilters(tags), item)
   return (
     <button className="card p-4 text-left w-full" onClick={() => router.push(`/artist/${item.id}`)}>
       <div className="flex gap-3 items-start">
-        <div className="w-12 h-12 rounded-full shrink-0 flex items-center justify-center text-xl"
-          style={{ background: 'var(--surface2)' }}>🎵</div>
+        <Thumb bg="linear-gradient(135deg,#edf5f0,#c8e0d0)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2a6b4a" strokeWidth="1.8" strokeLinecap="round">
+            <circle cx="10" cy="8" r="4"/><path d="M2 21C2 17.134 5.582 14 10 14"/>
+            <circle cx="18" cy="8" r="2.5" opacity="0.5"/><path d="M21 21C21 19 20 17.5 18 17" opacity="0.5"/>
+          </svg>
+        </Thumb>
         <div className="flex-1 min-w-0">
-          <p className="font-bold">{item.name}</p>
-          <p className="text-xs mt-0.5 line-clamp-2" style={{ color: 'var(--muted)' }}>{item.bio}</p>
+          <div className="flex items-center gap-2">
+            <p className="font-bold text-sm">{item.name}</p>
+            {item.collab_open && <span className="tag active text-xs">의뢰가능</span>}
+          </div>
+          <p className="text-xs mt-0.5 line-clamp-1" style={{ color: 'var(--muted)' }}>{item.bio}</p>
           <div className="flex flex-wrap gap-1 mt-2">
             {item.instruments.slice(0, 3).map(t => <span key={t} className="tag">{t}</span>)}
           </div>
           <MatchReason reason={reason} />
         </div>
-        {item.collab_open && (
-          <span className="tag active text-xs shrink-0">의뢰가능</span>
-        )}
       </div>
     </button>
   )
@@ -192,15 +205,18 @@ function ArtistCard({ item, tags }: { item: Artist; tags: string[] }) {
 
 function SamplePackCard({ item, tags }: { item: SamplePack; tags: string[] }) {
   const router = useRouter()
-  const filters = keywordsToFilters(tags)
-  const reason = buildMatchReason(filters, item)
+  const reason = buildMatchReason(keywordsToFilters(tags), item)
   return (
     <button className="card p-4 text-left w-full" onClick={() => router.push(`/sample-pack/${item.id}`)}>
       <div className="flex gap-3 items-start">
-        <div className="w-12 h-12 rounded-lg shrink-0 flex items-center justify-center text-xl"
-          style={{ background: 'var(--surface2)' }}>📦</div>
+        <Thumb bg="linear-gradient(135deg,#f0e8d8,#e0c8a0)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5e2a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </Thumb>
         <div className="flex-1 min-w-0">
-          <p className="font-bold truncate">{item.title}</p>
+          <p className="font-bold text-sm truncate">{item.title}</p>
           <p className="text-xs mt-0.5" style={{ color: 'var(--muted)' }}>
             {(item.artist as Artist)?.name ?? '—'} · {item.file_count}개 파일
           </p>
@@ -209,7 +225,7 @@ function SamplePackCard({ item, tags }: { item: SamplePack; tags: string[] }) {
           </div>
           <MatchReason reason={reason} />
         </div>
-        <p className="text-sm font-bold shrink-0" style={{ color: 'var(--accent)' }}>{formatPrice(item.price)}</p>
+        <p className="text-sm font-bold shrink-0 mt-0.5" style={{ color: 'var(--accent)' }}>{formatPrice(item.price)}</p>
       </div>
     </button>
   )
@@ -217,15 +233,17 @@ function SamplePackCard({ item, tags }: { item: SamplePack; tags: string[] }) {
 
 function CommissionCard({ item, tags }: { item: CommissionItem; tags: string[] }) {
   const router = useRouter()
-  const filters = keywordsToFilters(tags)
-  const reason = buildMatchReason(filters, item)
+  const reason = buildMatchReason(keywordsToFilters(tags), item)
   return (
     <button className="card p-4 text-left w-full" onClick={() => router.push(`/commission/${item.id}`)}>
       <div className="flex gap-3 items-start">
-        <div className="w-12 h-12 rounded-lg shrink-0 flex items-center justify-center text-xl"
-          style={{ background: 'var(--surface2)' }}>✍️</div>
+        <Thumb bg="linear-gradient(135deg,#f0eef8,#d8d0ec)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5a3a9a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </Thumb>
         <div className="flex-1 min-w-0">
-          <p className="font-bold truncate">{item.title}</p>
+          <p className="font-bold text-sm truncate">{item.title}</p>
           <p className="text-xs mt-0.5" style={{ color: 'var(--muted)' }}>
             {(item.artist as Artist)?.name ?? '—'} · {item.delivery_days}일 납기
           </p>
@@ -234,7 +252,7 @@ function CommissionCard({ item, tags }: { item: CommissionItem; tags: string[] }
           </div>
           <MatchReason reason={reason} />
         </div>
-        <p className="text-sm font-bold shrink-0" style={{ color: 'var(--accent)' }}>
+        <p className="text-sm font-bold shrink-0 mt-0.5" style={{ color: 'var(--accent)' }}>
           {item.price_from ? `₩${item.price_from.toLocaleString()}~` : '문의'}
         </p>
       </div>
