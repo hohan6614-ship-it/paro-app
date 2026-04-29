@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase'
 import type { Track, Artist } from '@/lib/database.types'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import TrackActions from '@/components/TrackActions'
 
 async function getTrack(id: string): Promise<Track | null> {
   try {
@@ -27,7 +28,7 @@ export default async function TrackDetailPage({ params }: { params: Promise<{ id
         <div className="w-32 h-32 rounded-xl flex items-center justify-center text-5xl shrink-0"
           style={{ background: 'var(--surface2)' }}>♩</div>
         <div className="flex-1">
-          <p className="text-xs uppercase tracking-widest mb-1" style={{ color: 'var(--accent)' }}>트랙</p>
+          <p className="text-xs uppercase tracking-widest mb-1" style={{ color: 'var(--muted)' }}>트랙</p>
           <h1 className="text-3xl font-black">{track.title}</h1>
           {artist && (
             <Link href={`/artist/${artist.id}`} className="text-sm mt-1 inline-block hover:underline" style={{ color: 'var(--muted)' }}>
@@ -49,23 +50,13 @@ export default async function TrackDetailPage({ params }: { params: Promise<{ id
         <TagRow label="라이선스" values={track.license_scope} />
       </div>
 
-      {/* 구매 */}
-      <div className="card p-6 flex items-center justify-between">
-        <div>
-          <p className="text-2xl font-black" style={{ color: 'var(--accent)' }}>
-            {track.price ? `₩${track.price.toLocaleString()}` : '가격 문의'}
-          </p>
-          <p className="text-xs mt-1" style={{ color: 'var(--muted)' }}>
-            {track.trade_type.join(' · ')} 포함
-          </p>
-        </div>
-        <div className="flex gap-3">
-          {track.collab_open && artist && (
-            <Link href={`/commission/${artist.id}`} className="btn-outline">의뢰하기</Link>
-          )}
-          <button className="btn-primary">구매하기</button>
-        </div>
-      </div>
+      {/* 구매 — 비로그인 시 모달 */}
+      <TrackActions
+        price={track.price ?? null}
+        tradeType={track.trade_type}
+        collabOpen={track.collab_open ?? false}
+        artistId={artist?.id}
+      />
     </div>
   )
 }
