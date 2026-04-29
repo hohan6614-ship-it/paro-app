@@ -1,12 +1,19 @@
 import type { Metadata } from 'next'
-import { Noto_Serif_KR } from 'next/font/google'
+import { Plus_Jakarta_Sans, Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 
-const notoSerifKR = Noto_Serif_KR({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['400', '700', '900'],
-  variable: '--font-serif',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-jakarta',
+  display: 'swap',
+})
+
+const notoSans = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  variable: '--font-korean',
   display: 'swap',
 })
 
@@ -17,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={notoSerifKR.variable}>
+    <html lang="ko" className={`${jakarta.variable} ${notoSans.variable}`}>
       <body className="min-h-screen">
         <Nav />
         <main>{children}</main>
