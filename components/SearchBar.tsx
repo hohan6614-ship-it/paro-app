@@ -58,8 +58,12 @@ export default function SearchBar() {
 
       <div className="flex flex-wrap gap-1.5 justify-center items-center">
         <span className="text-xs mr-1" style={{ color: 'var(--muted2)' }}>추천 태그</span>
-        {SEARCH_SUGGESTIONS.map(s => (
-          <button key={s} className="tag" onClick={() => addTag(s)}>{s}</button>
+        {SEARCH_SUGGESTIONS.map((s, i) => (
+          <button key={s}
+            className={`tag ${i < 2 ? 'highlight' : ''}`}
+            onClick={() => addTag(s)}>
+            {s}
+          </button>
         ))}
       </div>
     </div>

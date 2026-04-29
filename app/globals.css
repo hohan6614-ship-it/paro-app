@@ -1,17 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  --bg:       #f8f6f2;
-  --surface:  #ffffff;
-  --surface2: #f1ede8;
-  --border:   #e6e1d9;
-  --accent:   #2b3a6b;       /* 딥 인디고 */
-  --accent2:  #3d4f8a;
-  --gold:     #b8914a;       /* 금빛 포인트 */
-  --gold2:    #d4a85a;
-  --text:     #18160f;
-  --muted:    #7a7268;
-  --muted2:   #a09890;
+  /* ── 베이스 ── */
+  --bg:        #F8F4EC;
+  --surface:   #FFFFFF;
+  --surface2:  #F2EDE3;
+  --border:    #E3D8C8;
+
+  /* ── 텍스트 ── */
+  --text:      #1E1A16;
+  --muted:     #6F6254;
+  --muted2:    #A09080;
+
+  /* ── 브랜드 (로고·품격) ── */
+  --brand:     #8A5A2B;
+  --brand2:    #5F3A1C;
+
+  /* ── 액션 (검색·선택·hover) ── */
+  --action:    #1E7C73;
+  --action2:   #155F58;
+
+  /* ── 강조 (소량) ── */
+  --highlight: #C45532;
+  --gold:      #D6A23A;
 }
 
 * { box-sizing: border-box; }
@@ -31,7 +42,6 @@ body {
   border-radius: 9999px;
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.01em;
   border: 1px solid var(--border);
   color: var(--muted);
   background: var(--surface);
@@ -41,13 +51,19 @@ body {
   white-space: nowrap;
 }
 .tag:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: #eef0f8;
+  border-color: var(--action);
+  color: var(--action);
+  background: #e8f4f3;
 }
 .tag.active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--action);
+  border-color: var(--action);
+  color: #ffffff;
+  font-weight: 600;
+}
+.tag.highlight {
+  background: var(--highlight);
+  border-color: var(--highlight);
   color: #ffffff;
   font-weight: 600;
 }
@@ -68,17 +84,16 @@ body {
 
 /* ── 버튼 ── */
 .btn-primary {
-  background: var(--accent);
+  background: var(--action);
   color: #ffffff;
   font-weight: 700;
   font-size: 0.9rem;
   padding: 11px 26px;
   border-radius: 10px;
   transition: background 0.15s, transform 0.1s;
-  letter-spacing: 0.01em;
 }
 .btn-primary:hover {
-  background: var(--accent2);
+  background: var(--action2);
   transform: translateY(-1px);
 }
 .btn-outline {
@@ -90,9 +105,9 @@ body {
   transition: all 0.15s;
 }
 .btn-outline:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: #eef0f8;
+  border-color: var(--action);
+  color: var(--action);
+  background: #e8f4f3;
 }
 
 /* ── 폼 인풋 ── */
@@ -108,15 +123,9 @@ input, textarea, select {
   width: 100%;
 }
 input:focus, textarea:focus, select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(43,58,107,0.08);
+  border-color: var(--action);
+  box-shadow: 0 0 0 3px rgba(30,124,115,0.1);
 }
 input::placeholder, textarea::placeholder {
   color: var(--muted2);
-}
-
-/* ── 구분선 ── */
-.divider {
-  border: none;
-  border-top: 1px solid var(--border);
 }
