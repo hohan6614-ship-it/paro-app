@@ -1,28 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  /* ── 베이스 ── */
+  /* ── 오방색 기반 PARO 컬러 시스템 ── */
+
+  /* 백(白) — 배경·여백·한지 */
   --bg:        #F8F4EC;
   --surface:   #FFFFFF;
   --surface2:  #F2EDE3;
   --border:    #E3D8C8;
 
-  /* ── 텍스트 ── */
+  /* 흑(黑) — 텍스트·구조 */
   --text:      #1E1A16;
   --muted:     #6F6254;
   --muted2:    #A09080;
 
-  /* ── 브랜드 (로고·품격) ── */
+  /* 황(黃) — 브랜드·로고·안정감 */
   --brand:     #8A5A2B;
   --brand2:    #5F3A1C;
+  --gold:      #D6A23A;
 
-  /* ── 액션 (검색·선택·hover) ── */
+  /* 청(靑) — 탐색·인터랙션·CTA */
   --action:    #1E7C73;
   --action2:   #155F58;
 
-  /* ── 강조 (소량) ── */
+  /* 적(赤) — 강조·생동감 (소량) */
   --highlight: #C45532;
-  --gold:      #D6A23A;
+  --highlight2: #A9472B;
 }
 
 * { box-sizing: border-box; }

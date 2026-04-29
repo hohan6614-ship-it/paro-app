@@ -47,7 +47,7 @@ const entries = [
 export default function EntryCards() {
   const router = useRouter()
   return (
-    <section className="mt-16">
+    <section>
       <h2 className="text-lg font-bold mb-6" style={{ color: 'var(--text)' }}>어떻게 찾고 싶으세요?</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {entries.map(e => (
