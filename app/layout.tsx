@@ -1,6 +1,14 @@
 import type { Metadata } from 'next'
+import { Noto_Serif_KR } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
+
+const notoSerifKR = Noto_Serif_KR({
+  subsets: ['latin'],
+  weight: ['400', '700', '900'],
+  variable: '--font-serif',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'PARO — 국악 크리에이티브 마켓',
@@ -9,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={notoSerifKR.variable}>
       <body className="min-h-screen">
         <Nav />
         <main>{children}</main>

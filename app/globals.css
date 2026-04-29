@@ -37,6 +37,10 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.font-serif {
+  font-family: var(--font-serif), 'Noto Serif KR', Georgia, serif;
+}
+
 /* ── 태그 ── */
 .tag {
   display: inline-flex;
