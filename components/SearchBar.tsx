@@ -32,7 +32,7 @@ export default function SearchBar() {
     <div className="flex flex-col gap-3">
       <div
         className="flex flex-wrap items-center gap-2 p-2.5 rounded-2xl cursor-text transition-shadow"
-        style={{ background: 'var(--surface)', border: '1.5px solid var(--border)', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}
+        style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
         onClick={() => inputRef.current?.focus()}
       >
         {tags.map(tag => (
