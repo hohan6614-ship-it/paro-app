@@ -3,7 +3,9 @@ import { Plus_Jakarta_Sans, Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
 import Nav from '@/components/Nav'
 import AuthModal from '@/components/AuthModal'
+import Toast from '@/components/Toast'
 import { AuthProvider } from '@/context/AuthContext'
+import { ToastProvider } from '@/context/ToastContext'
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -28,11 +30,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={`${jakarta.variable} ${notoSans.variable}`}>
       <body className="min-h-screen">
-        <AuthProvider>
-          <Nav />
-          <main>{children}</main>
-          <AuthModal />
-        </AuthProvider>
+        <ToastProvider>
+          <AuthProvider>
+            <Nav />
+            <main>{children}</main>
+            <AuthModal />
+            <Toast />
+          </AuthProvider>
+        </ToastProvider>
       </body>
     </html>
   )

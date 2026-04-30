@@ -13,7 +13,7 @@ export default function TrackActions({ price, tradeType, collabOpen, artistId }:
   const { user, openAuthModal } = useAuth()
 
   function handlePurchase() {
-    if (!user) { openAuthModal(); return }
+    if (!user) { openAuthModal('save'); return }
     // TODO: 결제 연동
     alert('결제 기능은 준비 중이에요.')
   }
@@ -32,7 +32,7 @@ export default function TrackActions({ price, tradeType, collabOpen, artistId }:
         {collabOpen && artistId && (
           user
             ? <Link href={`/commission/${artistId}`} className="btn-outline">의뢰하기</Link>
-            : <button className="btn-outline" onClick={openAuthModal}>의뢰하기</button>
+            : <button className="btn-outline" onClick={() => openAuthModal('contact')}>의뢰하기</button>
         )}
         <button className="btn-primary" onClick={handlePurchase}>구매하기</button>
       </div>
